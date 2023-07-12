@@ -12,6 +12,7 @@
 def main():
     print(f'Список всех предметов - {all_items(items)}')
     print(f'Список уникальных предметов - {unique_item(items)}')
+    print(f'Отсутствует {without_item(items)}')
 
 
 def all_items(items):
@@ -29,7 +30,23 @@ def unique_item(items):
 
 
 def without_item(items):
-    ...
+    friend_count = len(items)
+    item_count = {}
+
+    for friend in items:
+        for item in items[friend]:
+            item_count[item] = item_count.get(item, 0) + 1
+
+    common_items = [item for item, count in item_count.items() if count == friend_count - 1]
+
+    missing_item = None
+
+    for friend in items:
+        if not any(item in items[friend] for item in common_items):
+            missing_item = friend
+            break
+    return common_items, missing_item
+
 
 items = {
     'Алекс': ('нож', 'репелент', 'компас', 'вода', 'салфетки'),
@@ -38,3 +55,4 @@ items = {
 
 if __name__ == '__main__':
     main()
+#Всего лишь "немного" списано у больших умов =)
