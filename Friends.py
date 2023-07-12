@@ -9,22 +9,32 @@
 # с множествами. Код должен расширяться
 # на любое большее количество друзей.
 
-friends_items = {
+def main():
+    print(f'Список всех предметов - {all_items(items)}')
+    print(f'Список уникальных предметов - {unique_item(items)}')
+
+
+def all_items(items):
+    all_item = [item for sublist in items.values() for item in sublist]
+    return all_item
+
+
+def unique_item(items):
+    unique_items = []
+    for item in set(sum(items.values(), ())):
+        count = sum(item in friends_items for friends_items in items.values())
+        if count == 1:
+            unique_items.append(item)
+    return unique_items
+
+
+def without_item(items):
+    ...
+
+items = {
     'Алекс': ('нож', 'репелент', 'компас', 'вода', 'салфетки'),
     'Иосиф': ('мыло', 'сковорода', 'котелок', 'вода', 'галеты'),
     'Споттер': ('гантели', 'курица', 'вода', 'салат', 'компас')}
-# Общие предметы друзей
-common_items = set.intersection(set(friends_items['Алекс']), set(friends_items['Иосиф']), set(friends_items['Споттер']))
-print(f'Общие вещи - {common_items}')
 
-# Уникальные предметы друзей
-unique_items = set()
-
-for item in friends_items.values():
-    unique_items.update(set(item).difference(common_items))
-unique = set.difference(set(friends_items['Алекс']), set(friends_items['Иосиф']), set(friends_items['Споттер']))
-print(f' ыы {unique}')
-print(f'Уникальные вещи - {unique_items}')
-
-
-# Я сломался и не смог додумать жту задачу, остальное дз уже просто списал
+if __name__ == '__main__':
+    main()
